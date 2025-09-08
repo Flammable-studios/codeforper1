@@ -5,6 +5,7 @@
 
 let pX = 300;
 let pY = 350;
+let pYV = 0;
 
 function setup() {
   createCanvas(600, 400);
@@ -21,24 +22,25 @@ function draw() {
 
   //draw the player @ (pY, pX)
   drawPlayer(pX, pY);
-  keyPressed();
+  if (keyIsDown(65)) { //A
+    pX -= 4;
+  }
+  if (keyIsDown(68)) { //D
+    pX += 4;
+  }
+  if (keyIsDown(32)) { //SPACE
+    pYV = 8;
+  }
+  if (pY < 350) {
+    pYV -= 2;
+  }
+  if (pY >= 350) {
+    pYV = 0;
+  }
+  pY -= pYV;
 }
 
 function drawPlayer(x, y) {
   fill('red');
   rect(x, y, 30, 40);
-}
-function keyPressed() {
-  if (keyCode === 65 && keyIsPressed) { //A
-    pX -= 3;
-  }
-  if (keyCode === 68 && keyIsPressed) { //D
-    pX += 3;
-  }
-  if (keyCode === 32 && keyIsPressed) {
-    pY -= 3;
-  }
-  if (pY === 355) {
-
-  }
 }
