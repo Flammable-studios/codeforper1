@@ -6,11 +6,13 @@
 let pX = 300;
 let pY = 350;
 let pYV = 0;
+let jumpCooldown = 1;
 
 function setup() {
   createCanvas(600, 400);
   background(240);
   noStroke();
+  frameRate(30);
 }
 
 function draw() {
@@ -19,25 +21,37 @@ function draw() {
   fill('green');
   rect(0, 390, width, 20);
 
-
   //draw the player @ (pY, pX)
   drawPlayer(pX, pY);
   if (keyIsDown(65)) { //A
-    pX -= 4;
+    pX -= 5;
   }
   if (keyIsDown(68)) { //D
-    pX += 4;
+    pX += 5;
   }
-  if (keyIsDown(32)) { //SPACE
-    pYV = 8;
+  if (keyIsDown(32) && jumpCooldown === 1) { //SPACE
+    pYV = 25;
+    jumpCooldown = 0;
   }
+
+  pY -= pYV;
+
   if (pY < 350) {
     pYV -= 2;
   }
   if (pY >= 350) {
     pYV = 0;
+    pY = 350;
+    jumpCooldown = 1;
   }
-  pY -= pYV;
+  if (pX > 625) {
+    pX = -25
+  }
+    if (pX < -25) {
+    pX = 625
+  }
+  fill('grey')
+  rect(0, 250, 150, 25)
 }
 
 function drawPlayer(x, y) {
